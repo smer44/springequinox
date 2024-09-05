@@ -76,42 +76,56 @@ label palace_scene:
     show screen main_interface
 
     menu:
-        "Annoyed":
-            $ mainchar.status_effects.remove("Surprised")
-            $ mainchar.status_effects.add("Annoyed")
+        "Surprised":
+            $ mainchar.status_effects.add("Surprised")
             mc "... because I am here for a completely different reason"
             mc "I am a..."
             menu :
                 "Spy":
                     "I am a agent of other kingdom, sent here to spy in the court"
+                    $ mainchar.status_effects.add("Spy")
                     $ mainchar.str +=1
                 "Thief":
                     "I wanted to steal something valuable from the treasury"
+                    $ mainchar.status_effects.add("Thief")
                     $ mainchar.kno +=1
                 "Сame for the company":
-                    "I just came to support a friend, who wants to become the Knight Maiden."
+                    "I  came just to support a friend, who wants to become the Knight Maiden."
+                    $ mainchar.status_effects.add("Slacker")
                     $ mainchar.man +=1
                 "Beauty contest":
-                    "I justthought there will be beauty contest here!"
+                    "I just thought there will be beauty contest here!"
+                    $ mainchar.status_effects.add("Model")
                     $ mainchar.lok +=1
 
         "Confident":
-            $ mainchar.status_effects.remove("Surprised")
+
             $ mainchar.status_effects.add("Confident")
             mc "With my swordfight skills, nobody here can stand against me!"
             $ mainchar.str +=1
 
         "Anxious":
-            $ mainchar.status_effects.remove("Surprised")
             $ mainchar.status_effects.add("Anxious")
             mc "W-What if one of my friends is chosen and I can’t see them anymore!?"
             $ mainchar.man +=1
 
-
         "Curious":
-            $ mainchar.status_effects.remove("Surprised")
             $ mainchar.status_effects.add("Curious")
             mc "I can’t wait to find out who will be the lucky one!"
             $ mainchar.kno +=1
 
-    "The ceremony is about to start"
+        "Annoyed":
+            $ mainchar.status_effects.add("Annoyed")
+            mc "Nobody pays attention to my gorgeous look!"
+            $ mainchar.lok +=1
+
+
+
+
+
+
+    mc "Look like the ceremony is about to start."
+    mc "I can barely see anything from here."
+
+    "This is not the first time twins have been born in the Dormeen family, but it will be the first time a joint Knight Maid Selection Ceremony will be held."
+    "Maybe to maximize security after the current threats the royal family has received."

@@ -13,4 +13,3 @@ init python:
             return f"{self.str} {self.kno} {self.man} {self.lok}"
 
     mainchar = Char(10,10,10,10)
-    mainchar.status_effects.add("Surprised")

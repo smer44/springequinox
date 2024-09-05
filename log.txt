@@ -1,16 +1,16 @@
-2024-09-05 06:17:19 UTC
+2024-09-05 06:29:15 UTC
 Windows-10-10.0.19045
 Ren'Py 8.2.3.24061702
 
-Early init took 0.05s
+Early init took 0.06s
 Loading error handling took 0.02s
 Loading script took 0.14s
-Loading save slot metadata took 0.02s
+Loading save slot metadata took 0.03s
 Loading persistent took 0.00s
 Running init code took 0.04s
 Loading analysis data took 0.01s
 Analyze and compile ATL took 0.00s
-Reloading save slot metadata took 0.02s
+Reloading save slot metadata took 0.03s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\peter\\AppData\\Roaming/RenPy/backups\\SpringQuinox':
 Dump and make backups took 0.04s
@@ -20,7 +20,7 @@ Initial gc took 0.03s
 DPI scale factor: 1.250000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object took 0.22s
+Creating interface object took 0.23s
 Cleaning stores took 0.00s
 Init translation took 0.03s
 Build styles took 0.00s
@@ -31,7 +31,7 @@ Prepare screens took 0.05s
 Save pyanalysis. took 0.00s
 Save bytecode. took 0.04s
 Running _start took 0.00s
-Interface start took 0.05s
+Interface start took 0.06s
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 3440, 1440)
@@ -41,6 +41,14 @@ Vendor: "b'NVIDIA Corporation'"
 Renderer: b'NVIDIA GeForce RTX 3060/PCIe/SSE2'
 Version: b'4.6.0 NVIDIA 560.81'
 Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(3440, 1361) drawable=(3440, 1361)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(3440, 1361) drawable=(3440, 1361)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(2364, 1330) drawable=(2364, 1330)
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(3440, 1361) drawable=(3440, 1361)
+Maximum texture size: 4096x4096
 Screen sizes: virtual=(1920, 1080) physical=(2364, 1330) drawable=(2364, 1330)
 Maximum texture size: 4096x4096
 Cleaning stores took 0.00s
