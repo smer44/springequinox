@@ -13,6 +13,8 @@ image flbg=  "flowers background.jpg"
 image book = "book.jpg"
 image flower = "flower_static.png"
 
+image basement = "basement.jpg"
+
 image mc = "mc.png"
 
 image palace_hall = "palace_bg.jpg"
@@ -40,26 +42,48 @@ label start:
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
 
-
-
+    scene basement:
+        xsize config.screen_width
+        ysize config.screen_height
     # These display lines of dialogue.
+    "One day you suddenly discovered that there is a portal in another dimention in your basement"
+    jump home_actions
 
-    "When a princess awakes on the first spring of her second decade on this Earth,"
 
-    "she must pray to the Gods that her heart and mind are one."
+label home_actions:
+    show mc at left
+    show screen healthbar(girl)
+    show screen main_interface
 
-    "For in that marvelous day, she must summon all the maidens in the kingdom"
+    menu:
+        "Dungeon lvl 1":
+            jump dunglvl1
+        "Shop":
+            "shop"
+        "Damage test":
+            $girl.gain_pdamage(10)
+        "Defence test":
+            $girl.defend(None)
+        "Skill points":
+            "skill points will be spendable at home"
+        "Rest":
+            $girl.healfull()
+            "after rest, character is fully healed"
 
-    "and, from among them, select one to be her loyal companion."
 
-    "To become her Knight Maiden."
 
     # This ends the game.
 
-    jump palace_scene
+    jump home_actions
 
 
-label palace_scene:
+label dunglvl1:
+    "dungeon level 1"
+    return
+
+
+
+label palace_scene_deprecated:
 
     scene palace_hall:
         xsize config.screen_width
@@ -73,7 +97,7 @@ label palace_scene:
     "Although there is no shortage of rumors that, at least for some of the princesses of the past, the selection was completely random."
 
     show mc at left
-    show screen main_interface
+
 
     menu:
         "Surprised":
