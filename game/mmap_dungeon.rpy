@@ -128,10 +128,13 @@ screen minimap_floor(mmap):
         for y in range(mmap.height):
             $row = mmap.mmap[y]
             for x in range(mmap.width):
-                if x == mmap.x and y == mmap.y:
-                    add charmm size (mmap.csize,mmap.csize)
-                else:
-                    add  mmap.image_dict[row[x]] size (mmap.csize,mmap.csize)
+                add  mmap.image_dict[row[x]] size (mmap.csize,mmap.csize)
+
+
+    add charmm size (mmap.csize,mmap.csize) pos (config.screen_width + (-mmap.width  +  mmap.x) *mmap.csize,168 + mmap.y *mmap.csize,)
+
+
+
 
 
 
