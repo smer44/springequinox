@@ -13,8 +13,10 @@ init python:
             return f"{self.str} {self.kno} {self.man} {self.lok}"
 
     class CharBattle:
-        def __init__(self,name,str,dex,end,mstr,mdex,mend):
+        def __init__(self,name,image,str,dex,end,mstr,mdex,mend):
             self.name = name
+            self.c = Character(name)
+            self.image = image
             self.str = str
             self.dex = dex
             self.end = end
@@ -31,7 +33,7 @@ init python:
             self.status_effects = set()
 
         def updatestats(self):
-            self.maxhp = self.str * 5 + self.mstr * 5
+            self.maxhp = self.str * 2 + self.mstr * 2
             self.maxsta = self.end * 5
             self.maxcsta = self.dex * 5
             self.maxmana = self.mend * 5
@@ -54,40 +56,49 @@ init python:
 
 
         def attack(self,other):
-            if not self.check_min_stat(self.sta,10):
+            attack_power = self.str
+            if not self.check_min_stat(self.sta,attack_power):
                 return False
-            self.sta -= 10
+            self.sta -= attack_power
             self.reset_def()
-            other.gain_pdamage(self.str)
+            other.gain_pdamage(attack_power)
             return True
 
         def maattack(self,other):
-            if not self.check_min_stat(self.mana,15):
+            spellpower = (self.mstr * 3) // 2
+            if not self.check_min_stat(self.mana,spellpower):
                 return False
-            self.mana -=15
+            self.mana -=spellpower
             self.reset_def()
-            other.gain_mdamage(self.mstr)
+            other.gain_mdamage(spellpower)
             return True
 
         def defend(self, other):
-            if not self.check_min_stat(self.sta,10):
+            added_defence = self.str//2
+            if not self.check_min_stat(self.sta,added_defence):
                 return False
-            self.sta -= 10
-            self.cdef = 2*self.defe
+            self.sta -= added_defence
+            self.cdef = self.defe + added_defence
             return True
 
 
         def rest(self,other):
             if not self.check_nomax():
                 return False
-            self.sta += self.end
-            self.mana += self.mend
+            self.sta = min(self.sta + self.end, self.maxsta)
+            self.mana = min(self.mana + self.mend, self.maxmana)
 
 
         def gain_pdamage(self,dmg):
             dmg = max(dmg - self.cdef,0)
             self.hp -= dmg
             self.reset_def()
+
+        def gain_mdamage(self,dmg):
+            dmg = max(dmg - self.cmdef,0)
+            self.hp -= dmg
+            self.reset_def()
+
 
         def reset_def(self):
             self.cdef = self.defe
@@ -116,8 +127,41 @@ init python:
         def  __str__(self):
             return f"{self.str} {self.dex} {self.end} {self.mstr}"
 
-    girl = CharBattle("girl",5,3,2,1,2,1)
+
+    class CharBattleAI(CharBattle):
+        #decide is called before
+        def decide(self,other):
+            if self.cdef <= self.defe:
+                if self.sta >= self.str:
+                    self.desigion  = "Defend"
+                else:
+                    self.desigion  = "Rest"
+            else:
+                if self.mana >= (self.mstr * 3 // 2):
+                    self.desigion  = "Cast"
+                elif self.sta >= self.str//2:
+                    self.desigion  = "Attack"
+                else:
+                    self.desigion  = "Rest"
+
+        def execute_desigion(self,other):
+            if self.desigion  == "Defend":
+                self.defend(other)
+            elif self.desigion  == "Attack":
+                self.attack(other)
+            elif self.desigion  == "Cast":
+                self.maattack(other)
+            elif self.desigion  == "Rest":
+                self.rest(other)
+
+
+
+    girl_image = Image("mc.png")
+    girl = CharBattle("Adventurer",girl_image,5,3,2,1,2,1)
     no_action = lambda : None
+
+    rat_image = Image("rat.png")
+    rat = CharBattleAI("Ratman",rat_image,5,3,2,1,2,1)
 
 
 screen healthbar(mainchar):
@@ -139,13 +183,13 @@ screen healthbar(mainchar):
             vbox:
                 spacing 10
                 xmaximum 350
-                bar value StaticValue(girl.hp, mainchar.maxhp)
-                bar value StaticValue(girl.sta, mainchar.maxsta)
-                bar value StaticValue(girl.csta, mainchar.maxcsta)
-                bar value StaticValue(girl.mana, mainchar.maxmana)
-                bar value StaticValue(girl.cmana, mainchar.maxcmana)
-                bar value StaticValue(girl.cdef, mainchar.defe*3)
-                bar value StaticValue(girl.cmdef, mainchar.mdef*3)
+                bar value StaticValue(mainchar.hp, mainchar.maxhp)
+                bar value StaticValue(mainchar.sta, mainchar.maxsta)
+                bar value StaticValue(mainchar.csta, mainchar.maxcsta)
+                bar value StaticValue(mainchar.mana, mainchar.maxmana)
+                bar value StaticValue(mainchar.cmana, mainchar.maxcmana)
+                bar value StaticValue(mainchar.cdef, mainchar.defe*3)
+                bar value StaticValue(mainchar.cmdef, mainchar.mdef*3)
 
             # Display status effects
             if mainchar.status_effects:
@@ -159,7 +203,7 @@ screen enemyhealthbar(c):
 
     # Top Left: Character Stats
     frame:
-        align (0.0, 0.0)
+        align (1.0, 0.0)
         hbox:
             vbox:
                 spacing 25
@@ -171,6 +215,7 @@ screen enemyhealthbar(c):
                 text f"Counter Mana : {c.cmana}/{c.maxcmana}" size 20
                 text f"Defence      : {c.cdef}/{c.defe}" size 20
                 text f"Magic defence: {c.cmdef}/{c.mdef}" size 20
+                text f"Desigion     : {c.desigion}" size 20
             vbox:
                 spacing 10
                 xmaximum 350
@@ -183,8 +228,8 @@ screen enemyhealthbar(c):
                 bar value StaticValue(c.cmdef, c.mdef*3)
 
             # Display status effects
-            if mainchar.status_effects:
+            if c.status_effects:
                 vbox:
                     text "Status Effects:" size 18
-                    for effect in mainchar.status_effects:
+                    for effect in c.status_effects:
                         text effect size 18 color "#FF0000"

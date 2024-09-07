@@ -15,7 +15,7 @@ image flower = "flower_static.png"
 
 image basement = "basement.jpg"
 
-image mc = "mc.png"
+#image mc = "mc.png"
 
 image palace_hall = "palace_bg.jpg"
 
@@ -69,6 +69,10 @@ label home_actions:
         "Rest":
             $girl.healfull()
             "after rest, character is fully healed"
+        "Test battle":
+            $rat.healfull()
+            call fight_start(girl,rat)
+
 
 
 

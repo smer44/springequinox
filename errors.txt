@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/mmap_dungeon.rpy", line 135: the size keyword argument was not given a value.
-    size = (mmap.csize,mmap.csize)
-         ^
+File "game/mmap_dungeon.rpy", line 6: invalid syntax
+    clas MMapCell:
+          ^
 
 Ren'Py Version: Ren'Py 8.2.3.24061702
-Sat Sep  7 05:09:29 2024
+Sat Sep  7 05:39:52 2024

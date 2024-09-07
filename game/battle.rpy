@@ -30,6 +30,7 @@ label fight_start(player,enemy):
     show screen enemyhealthbar(enemy)
 
     call fight_loop(player, enemy)
+    hide screen enemyhealthbar
     return
 
 
@@ -45,9 +46,11 @@ label fight_loop(player, enemy):
 
     $ enemy.execute_desigion(player)
     $ renpy.pause(0.1)
-    if player.health <= 0:
-        jump lost_fight
-    elif enemy.health <= 0:
-        jump wone_fight
+    if player.hp <= 0:
+
+        "You lost the fight "
+        return
+    elif enemy.hp <= 0:
+        return
     call fight_loop(player,enemy)
     return

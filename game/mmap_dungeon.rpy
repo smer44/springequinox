@@ -3,10 +3,20 @@
 
 init python:
 
+    class MMapCell:
+        def __init__(self,image,bg,*enemies):
+            self.image = image
+            self.bg = bg
+            self.enemies = list(enemies)
+
+        def has_enemies(self):
+            return len(self.enemies ) > 0
+
     class MMapFloor:
-        def __init__(self,name,image_dict,text):
+        def __init__(self,name,image_dict,bg_dict,text):
             self.name = name
             self.image_dict = image_dict
+            self.bg_dict = bg_dict
             self.load(text)
             self.csize = 40
             self.x = 0
@@ -22,11 +32,15 @@ init python:
                         assert width == len(line)
                     else:
                         width = len(line)
-                    mmap.append(line)
+                    line_of_cells = [MMapCell(self.image_dict[item],self.bg_dict[item]) for item in line]
+                    mmap.append(line_of_cells)
 
             self.width = width
             self.height = len(mmap)
             self.mmap = mmap
+
+        def add_enemy(self,enemy,x,y):
+            self.mmap[y][x].enemies.append(enemy)
 
         def current_char(self):
             return self.mmap[self.y][self.x]
@@ -90,7 +104,6 @@ init python:
 
     image_mapping = {"0": grassstone, "X": grasstree, "#": water, "+" : mmgrass}
 
-    first_floor = MMapFloor("dungeon level 1",image_mapping,  text_map)
 
     #-- Background --
 
@@ -105,15 +118,20 @@ init python:
 
     bg_mapping = {"0": grassrock_bg, "X": grasstree_bg, "#": water_bg, "+" : grass_bg}
 
+
+    first_floor = MMapFloor("dungeon level 1",image_mapping,bg_mapping,  text_map)
+
+    first_floor.add_enemy(rat,1,0)
+
     #-- Arrows --
 
-    arrow_down = Image("gui/arrow_down.png")
+    arrow_down = "gui/arrow_down_%s.png"
 
-    arrow_up = Image("gui/arrow_up.png")
+    arrow_up = "gui/arrow_up_%s.png"
 
-    arrow_left = Image("gui/arrow_left.png")
+    arrow_left = "gui/arrow_left_%s.png"
 
-    arrow_right = Image("gui/arrow_right.png")
+    arrow_right = "gui/arrow_right_%s.png"
 
 
 
@@ -128,7 +146,7 @@ screen minimap_floor(mmap):
         for y in range(mmap.height):
             $row = mmap.mmap[y]
             for x in range(mmap.width):
-                add  mmap.image_dict[row[x]] size (mmap.csize,mmap.csize)
+                add  row[x].image size (mmap.csize,mmap.csize)
 
 
     add charmm size (mmap.csize,mmap.csize) pos (config.screen_width + (-mmap.width  +  mmap.x) *mmap.csize,168 + mmap.y *mmap.csize,)
@@ -141,7 +159,7 @@ screen minimap_floor(mmap):
 label visit_mmap_cell(mmap):
     hide screen minimap_floor
     show screen minimap_floor(first_floor)
-    scene expression bg_mapping[mmap.current_char()]:
+    scene expression mmap.current_char().bg:
         xsize config.screen_width
         ysize config.screen_height
     show mc at left
@@ -178,22 +196,22 @@ label go_right(mmap):
 screen navigation_buttons(mmap):
     #up and down swapped because map is drawn from up to down
     if mmap.can_up():
-        imagebutton idle arrow_down:
+        imagebutton auto arrow_down:
             xalign 0.58
             yalign 1.0
             action Call("go_up", mmap)
     if mmap.can_down():
-        imagebutton idle arrow_up:
+        imagebutton auto arrow_up:
             xalign 0.58
             yalign 0.7
             action Call("go_down", mmap)
     if mmap.can_left():
-        imagebutton idle arrow_left:
+        imagebutton auto arrow_left:
             xalign 0.5
             yalign 0.87
             action Call("go_left", mmap)
     if mmap.can_right():
-        imagebutton idle arrow_right:
+        imagebutton auto arrow_right:
             xalign 0.65
             yalign 0.87
             action Call("go_right", mmap)
