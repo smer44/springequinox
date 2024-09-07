@@ -78,8 +78,11 @@ label home_actions:
 
 
 label dunglvl1:
-    "dungeon level 1"
-    return
+    window hide
+    call visit_mmap_cell(first_floor)
+
+
+    jump dunglvl1
 
 
 

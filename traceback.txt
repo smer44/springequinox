@@ -1,26 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 64, in script
-    $girl.gain_pdamage(10)
-  File "game/script.rpy", line 64, in <module>
-    $girl.gain_pdamage(10)
-AttributeError: 'CharBattle' object has no attribute 'gain_pdamage'
+  File "game/script.rpy", line 81, in script call
+    call visit_mmap_cell(first_floor)
+  File "game/mmap_dungeon.rpy", line 114, in script
+    label go_down(mmap):
+TypeError: missing a required argument: 'mmap'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 64, in script
-    $girl.gain_pdamage(10)
-  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\ast.py", line 823, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\python.py", line 1178, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/script.rpy", line 64, in <module>
-    $girl.gain_pdamage(10)
-AttributeError: 'CharBattle' object has no attribute 'gain_pdamage'
+  File "game/script.rpy", line 81, in script call
+    call visit_mmap_cell(first_floor)
+  File "game/mmap_dungeon.rpy", line 114, in script
+    label go_down(mmap):
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\ast.py", line 766, in execute
+    values = apply_arguments(self.parameters, renpy.store._args, renpy.store._kwargs)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\parameter.py", line 429, in apply_arguments
+    return parameters.apply(args or (), kwargs or {}, ignore_errors)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\parameter.py", line 283, in apply
+    raise TypeError(msg) # from None
+TypeError: missing a required argument: 'mmap'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.3.24061702
 SpringQuinox 1.0
-Fri Sep  6 10:10:35 2024
+Sat Sep  7 03:46:22 2024

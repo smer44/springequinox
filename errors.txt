@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/character.rpy", line 40: invalid syntax
-            self.cdef = self.def
-                              ^
+File "game/mmap_dungeon.rpy", line 44: invalid syntax
+            return self.y > 0 :
+                               ^
 
 Ren'Py Version: Ren'Py 8.2.3.24061702
-Fri Sep  6 10:02:12 2024
+Sat Sep  7 04:11:32 2024
