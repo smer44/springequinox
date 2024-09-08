@@ -1,42 +1,110 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 77, in script call
-    call fight_start(girl,rat)
-  File "game/battle.rpy", line 34, in script call
-    call fight_step(player, enemy)
-  File "game/battle.rpy", line 55, in script call
-    call fight_loop(player,enemy)
-  File "game/script.rpy", line 77, in script call
-    call fight_start(girl,rat)
-  File "game/battle.rpy", line 34, in script call
-    call fight_step(player, enemy)
-  File "game/battle.rpy", line 55, in script call
-    call fight_loop(player,enemy)
-ScriptError: could not find label 'fight_loop'.
+  File "game/script.rpy", line 90, in script
+    pause
+  File "renpy/common/000statements.rpy", line 462, in execute_pause
+    renpy.pause()
+  File "game/charactercreator.rpy", line 76, in execute
+    screen file_tree(file_manager):
+  File "game/charactercreator.rpy", line 76, in execute
+    screen file_tree(file_manager):
+  File "game/charactercreator.rpy", line 77, in execute
+    side "c b r":
+  File "game/charactercreator.rpy", line 83, in execute
+    viewport id "vp":
+  File "game/charactercreator.rpy", line 85, in execute
+    vbox:
+  File "game/charactercreator.rpy", line 86, in execute
+    for isfile, item in file_manager.list():
+  File "game/charactercreator.rpy", line 89, in execute
+    if file_manager.isopen(0,item):
+  File "game/charactercreator.rpy", line 90, in execute
+    for isfile, item2 in file_manager.list(item):
+  File "game/charactercreator.rpy", line 93, in execute
+    if file_manager.isopen(1,item2):
+  File "game/charactercreator.rpy", line 94, in execute
+    for isfile, item3 in file_manager.list(item + "/" + item2):
+  File "game/charactercreator.rpy", line 97, in execute
+    if file_manager.isopen(2,item3):
+  File "game/charactercreator.rpy", line 98, in execute
+    for isfile, item4 in file_manager.list(item + "/" + item2 + "/" + item3):
+  File "game/charactercreator.rpy", line 98, in <module>
+    for isfile, item4 in file_manager.list(item + "/" + item2 + "/" + item3):
+  File "game/charactercreator.rpy", line 43, in list
+    return [ (os.path.isfile(ref + "/" + item), str(item)) for item in os.listdir(ref)]
+  File "game/charactercreator.rpy", line 43, in <lambda>
+    return [ (os.path.isfile(ref + "/" + item), str(item)) for item in os.listdir(ref)]
+NotADirectoryError: [WinError 267] The directory name is invalid: 'E:\\2022workspaces\\PycharmProjects\\renpyProjects\\SpringQuinox/game/images/Female Character Sprite Creator/Body/Body/Body 1.png'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 77, in script call
-    call fight_start(girl,rat)
-  File "game/battle.rpy", line 34, in script call
-    call fight_step(player, enemy)
-  File "game/battle.rpy", line 55, in script call
-    call fight_loop(player,enemy)
-  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\ast.py", line 1416, in execute
-    rv = renpy.game.context().call(label, return_site=self.next.name)
-  File "game/script.rpy", line 77, in script call
-    call fight_start(girl,rat)
-  File "game/battle.rpy", line 34, in script call
-    call fight_step(player, enemy)
-  File "game/battle.rpy", line 55, in script call
-    call fight_loop(player,enemy)
-  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\script.py", line 1103, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'fight_loop'.
+  File "game/script.rpy", line 90, in script
+    pause
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\ast.py", line 1971, in execute
+    self.call("execute")
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\ast.py", line 1953, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\statements.py", line 349, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 462, in execute_pause
+    renpy.pause()
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\exports.py", line 1662, in pause
+    rv = renpy.ui.interact(mouse='pause', type='pause', roll_forward=roll_forward, pause=delay, pause_modal=modal)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\ui.py", line 301, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\core.py", line 2166, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\core.py", line 2688, in interact_core
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\displayable.py", line 431, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\displayable.py", line 431, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\displayable.py", line 431, in visit_all
+    d.visit_all(callback, seen)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\screen.py", line 480, in visit_all
+    callback(self)
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\core.py", line 2688, in <lambda>
+    root_widget.visit_all(lambda d : d.per_interact())
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\screen.py", line 491, in per_interact
+    self.update()
+  File "C:\2022portable_programs\renpy-8.2.3-sdk\renpy\display\screen.py", line 697, in update
+    self.screen.function(**self.scope)
+  File "game/charactercreator.rpy", line 76, in execute
+    screen file_tree(file_manager):
+  File "game/charactercreator.rpy", line 76, in execute
+    screen file_tree(file_manager):
+  File "game/charactercreator.rpy", line 77, in execute
+    side "c b r":
+  File "game/charactercreator.rpy", line 83, in execute
+    viewport id "vp":
+  File "game/charactercreator.rpy", line 85, in execute
+    vbox:
+  File "game/charactercreator.rpy", line 86, in execute
+    for isfile, item in file_manager.list():
+  File "game/charactercreator.rpy", line 89, in execute
+    if file_manager.isopen(0,item):
+  File "game/charactercreator.rpy", line 90, in execute
+    for isfile, item2 in file_manager.list(item):
+  File "game/charactercreator.rpy", line 93, in execute
+    if file_manager.isopen(1,item2):
+  File "game/charactercreator.rpy", line 94, in execute
+    for isfile, item3 in file_manager.list(item + "/" + item2):
+  File "game/charactercreator.rpy", line 97, in execute
+    if file_manager.isopen(2,item3):
+  File "game/charactercreator.rpy", line 98, in execute
+    for isfile, item4 in file_manager.list(item + "/" + item2 + "/" + item3):
+  File "game/charactercreator.rpy", line 98, in <module>
+    for isfile, item4 in file_manager.list(item + "/" + item2 + "/" + item3):
+  File "game/charactercreator.rpy", line 43, in list
+    return [ (os.path.isfile(ref + "/" + item), str(item)) for item in os.listdir(ref)]
+  File "game/charactercreator.rpy", line 43, in <lambda>
+    return [ (os.path.isfile(ref + "/" + item), str(item)) for item in os.listdir(ref)]
+NotADirectoryError: [WinError 267] The directory name is invalid: 'E:\\2022workspaces\\PycharmProjects\\renpyProjects\\SpringQuinox/game/images/Female Character Sprite Creator/Body/Body/Body 1.png'
 
 Windows-10-10.0.19045 AMD64
 Ren'Py 8.2.3.24061702
 SpringQuinox 1.0
-Sun Sep  8 06:12:52 2024
+Sun Sep  8 08:43:36 2024

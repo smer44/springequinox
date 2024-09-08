@@ -83,6 +83,14 @@ label home_actions:
             pause
             hide screen ff_fight_start
             show expression girl.image at left, std_mc
+        "create character":
+            hide expression girl.image
+            show screen file_tree(sel_sel)
+            call screen show_compound(comp_char,0.7,0.5,config.screen_width//3, config.screen_height//3)
+            #pause
+            hide screen file_tree
+            hide screen show_compound
+            show expression girl.image at left, std_mc
 
 
 

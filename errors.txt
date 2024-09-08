@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/ffbattle.rpy", line 53: expected 'word' not found.
-    screen
-          ^
+File "game/charactercreator.rpy", line 36: is not terminated with a newline. (Check strings and parenthesis.)
+(Perhaps you left out a " at the end of the first line.)
+                self.img_root_replaced = f"{config.basedir}".replace(r"//".r"\")
 
 Ren'Py Version: Ren'Py 8.2.3.24061702
-Sun Sep  8 05:26:09 2024
+Sun Sep  8 08:37:57 2024
