@@ -5,7 +5,7 @@
 
 define e = Character("Eileen")
 
-define mc = Character("MC")
+#define mc = Character("MC")
 
 image flbg=  "flowers background.jpg"
 # The game starts here.
@@ -73,6 +73,7 @@ label home_actions:
             "after rest, character is fully healed"
         "Test battle":
             $rat.healfull()
+            hide expression girl.image
             call fight_start(girl,rat)
         "Test show formation":
             hide expression girl.image

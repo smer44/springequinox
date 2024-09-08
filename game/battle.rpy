@@ -24,33 +24,40 @@ label fight_start(player,enemy):
     $ player_image = player.image
     $ enemy_image = enemy.image
 
-    show expression  player.image at left
-    show expression enemy.image at right
+    show expression  player.image at left, std_mc
+    show expression enemy.image at right, std_mc
 
     show screen enemyhealthbar(enemy)
 
-    call fight_loop(player, enemy)
+    label .fight_step_label:
+
+        call fight_step(player, enemy)
+        if player.hp <= 0:
+            "You lost the fight "
+            jump fight_step_end
+        elif enemy.hp <= 0:
+            jump fight_step_end
+
+    jump .fight_step_label
+
+    label .fight_step_end:
+
     hide screen enemyhealthbar
     return
 
 
 #of the rought academy legacy oricinal mechanicks
-label fight_loop(player, enemy):
+label fight_step(player, enemy):
     $ enemy.decide(player)
     #hide screen fight_menu
     call screen fight_menu(player,enemy)
     $ renpy.pause(0.1)
     if player.wrong_desigion:
         player.c "i can not do that"
-        call fight_loop(player,enemy)
+        return
 
     $ enemy.execute_desigion(player)
     $ renpy.pause(0.1)
-    if player.hp <= 0:
 
-        "You lost the fight "
-        return
-    elif enemy.hp <= 0:
-        return
-    call fight_loop(player,enemy)
+    #call fight_loop(player,enemy)
     return
