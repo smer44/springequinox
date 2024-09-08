@@ -49,10 +49,12 @@ label start:
     "One day you suddenly discovered that there is a portal in another dimention in your basement"
     jump home_actions
 
+transform std_mc:
+    zoom .7
 
 label home_actions:
-    show mc at left
-    show screen healthbar(girl)
+    show expression girl.image at left, std_mc
+    show screen healthbar(girl,0,0,350,250)
     show screen main_interface
 
     menu:
@@ -72,6 +74,15 @@ label home_actions:
         "Test battle":
             $rat.healfull()
             call fight_start(girl,rat)
+        "Test show formation":
+            hide expression girl.image
+            show screen ff_fight_start(testFormation)
+            "[testFormation]"
+            hide window
+            pause
+            hide screen ff_fight_start
+            show expression girl.image at left, std_mc
+
 
 
 

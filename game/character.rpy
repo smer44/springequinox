@@ -125,7 +125,11 @@ init python:
 
 
         def  __str__(self):
-            return f"{self.str} {self.dex} {self.end} {self.mstr}"
+            return f"CharBattle({self.name},{self.str},{self.dex},{self.end},{self.mstr})"
+
+        def  __repr__(self):
+            return str(self)
+
 
 
     class CharBattleAI(CharBattle):
@@ -156,7 +160,7 @@ init python:
 
 
 
-    girl_image = Image("mc.png")
+    girl_image = Image("warrior_girl.png")
     girl = CharBattle("Adventurer",girl_image,5,3,2,1,2,1)
     no_action = lambda : None
 
@@ -164,32 +168,38 @@ init python:
     rat = CharBattleAI("Ratman",rat_image,5,3,2,1,2,1)
 
 
-screen healthbar(mainchar):
-
+screen healthbar(mainchar,xa,ya,xmax,ymax):
+    $test_sz = ymax//8
+    $bar_sz = ymax//8
     # Top Left: Character Stats
     frame:
-        align (0.0, 0.0)
+        align (xa, ya)
         hbox:
             vbox:
-                spacing 25
-                xmaximum 350
-                text f"Health       : {mainchar.hp}/{mainchar.maxhp}" size 20
-                text f"Stamina      : {mainchar.sta}/{mainchar.maxsta}" size 20
-                text f"Counter pts  : {mainchar.csta}/{mainchar.maxcsta}" size 20
-                text f"Mana         : {mainchar.mana}/{mainchar.maxmana}" size 20
-                text f"Counter Mana : {mainchar.cmana}/{mainchar.maxcmana}" size 20
-                text f"Defence      : {mainchar.cdef}/{mainchar.defe}" size 20
-                text f"Magic defence: {mainchar.cmdef}/{mainchar.mdef}" size 20
+
+                xmaximum xmax
+                spacing test_sz/2
+
+                text f"Health       : {mainchar.hp}/{mainchar.maxhp}" size test_sz
+                text f"Stamina      : {mainchar.sta}/{mainchar.maxsta}" size test_sz
+                text f"Counter pts  : {mainchar.csta}/{mainchar.maxcsta}" size test_sz
+                text f"Mana         : {mainchar.mana}/{mainchar.maxmana}" size test_sz
+                text f"Counter Mana : {mainchar.cmana}/{mainchar.maxcmana}" size test_sz
+                text f"Defence      : {mainchar.cdef}/{mainchar.defe}" size test_sz
+                text f"Magic defence: {mainchar.cmdef}/{mainchar.mdef}" size test_sz
             vbox:
-                spacing 10
-                xmaximum 350
-                bar value StaticValue(mainchar.hp, mainchar.maxhp)
-                bar value StaticValue(mainchar.sta, mainchar.maxsta)
-                bar value StaticValue(mainchar.csta, mainchar.maxcsta)
-                bar value StaticValue(mainchar.mana, mainchar.maxmana)
-                bar value StaticValue(mainchar.cmana, mainchar.maxcmana)
-                bar value StaticValue(mainchar.cdef, mainchar.defe*3)
-                bar value StaticValue(mainchar.cmdef, mainchar.mdef*3)
+
+
+                spacing bar_sz/2
+                xmaximum xmax
+
+                bar value StaticValue(mainchar.hp, mainchar.maxhp) ysize bar_sz
+                bar value StaticValue(mainchar.sta, mainchar.maxsta) ysize bar_sz
+                bar value StaticValue(mainchar.csta, mainchar.maxcsta) ysize bar_sz
+                bar value StaticValue(mainchar.mana, mainchar.maxmana) ysize bar_sz
+                bar value StaticValue(mainchar.cmana, mainchar.maxcmana) ysize bar_sz
+                bar value StaticValue(mainchar.cdef, mainchar.defe*3) ysize bar_sz
+                bar value StaticValue(mainchar.cmdef, mainchar.mdef*3) ysize bar_sz
 
             # Display status effects
             if mainchar.status_effects:
