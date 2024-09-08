@@ -27,7 +27,7 @@ label fight_start(player,enemy):
     show expression  player.image at left, std_mc
     show expression enemy.image at right, std_mc
 
-    show screen enemyhealthbar(enemy)
+    show screen healthbar(enemy,1.0,0.0,350,250,3.6)
 
     label .fight_step_label:
 

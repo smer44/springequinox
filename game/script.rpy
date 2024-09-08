@@ -54,7 +54,7 @@ transform std_mc:
 
 label home_actions:
     show expression girl.image at left, std_mc
-    show screen healthbar(girl,0,0,350,250)
+    show screen healthbar(girl,0,0,350,250,3.5)
     show screen main_interface
 
     menu:

@@ -168,7 +168,7 @@ init python:
     rat = CharBattleAI("Ratman",rat_image,5,3,2,1,2,1)
 
 
-screen healthbar(mainchar,xa,ya,xmax,ymax):
+screen healthbar(mainchar,xa,ya,xmax,ymax,spacing_koef):
     $test_sz = ymax//8
     $bar_sz = ymax//8
     # Top Left: Character Stats
@@ -178,7 +178,7 @@ screen healthbar(mainchar,xa,ya,xmax,ymax):
             vbox:
 
                 xmaximum xmax
-                spacing test_sz/2
+                spacing test_sz/spacing_koef
 
                 text f"Health       : {mainchar.hp}/{mainchar.maxhp}" size test_sz
                 text f"Stamina      : {mainchar.sta}/{mainchar.maxsta}" size test_sz
